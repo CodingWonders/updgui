@@ -5,6 +5,11 @@ UpdGUI is a simple PowerShell front-end for the PSWindowsUpdate module that, cur
 > [!NOTE]
 > This project is in alpha stages. Feedback is very appreciated
 
+### Credits
+
+- Programming: CodingWonders
+- Idea: [og-mrk](https://www.github.com/og-mrk)
+
 ### Usage
 
 - **Requirements:** your language mode must not be set to constrained. To check your language mode, type `$ExecutionContext.SessionState.LanguageMode` and make sure it is set to `FullLanguage`
