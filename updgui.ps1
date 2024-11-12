@@ -23,8 +23,12 @@ $Button2_Click = {
 		Invoke-InfoLogging "Installing selected updates. Please wait..."
 		$checkedUpdates = $ListView1.CheckedItems
 		foreach ($selLVI in $checkedUpdates) {
-			Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`"..."
-			Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false
+			Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`" (KB Article ID: $($selLVI.SubItems[2].Text))..."
+			if ($selLVI.Subitems[2].Text -ne "") {
+				Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false					
+			} else {
+				Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false			
+			}
 			if ($?) {
 				Invoke-InfoLogging "Update with name `"$($selLVI.SubItems[4].Text)`" has been successfully installed"
 				$ListView1.Items.Remove($selLVI)
