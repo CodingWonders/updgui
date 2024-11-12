@@ -20,6 +20,16 @@ UpdGUI is a simple PowerShell front-end for the PSWindowsUpdate module that, cur
 4. Select the updates you want to install
 5. Install them!
 
+<p align="center">
+	<img src="https://github.com/CodingWonders/updgui/blob/main/res/updgui_update_install.png" />
+	<p align="center">Installing updates</p>
+</p>
+
+<p align="center">
+	<img src="https://github.com/CodingWonders/updgui/blob/main/res/updgui_logandabout.png" />
+	<p align="center">Update list and About screen</p>
+</p>
+
 ### Contributing
 
 - **Requirements:** [PSScriptPad](https://docs.poshtools.com/powershell-pro-tools-documentation/psscriptpad) or any PowerShell ISE that supports visual form editing for, well, designing the forms more easily. Any other editor, even Notepad, can open PowerShell scripts as well
