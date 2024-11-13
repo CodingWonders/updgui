@@ -2,9 +2,6 @@
 
 UpdGUI is a simple PowerShell front-end for the PSWindowsUpdate module that, currently, lets you get and install the updates that you select.
 
-> [!NOTE]
-> This project is in alpha stages. Feedback is very appreciated
-
 ### Credits
 
 - Programming: CodingWonders
