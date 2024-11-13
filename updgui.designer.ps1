@@ -129,6 +129,8 @@ $Form1.Controls.Add($Button1)
 $Form1.Controls.Add($ListView1)
 $Form1.Controls.Add($Button2)
 $Form1.ForeColor = [System.Drawing.SystemColors]::ActiveCaptionText
+$Form1.MaximumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]4096,[System.Int32]4096))
+$Form1.MinimumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]600,[System.Int32]240))
 $Form1.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $Form1.Text = [System.String]'UpdGUI'
 $Form1.ResumeLayout($false)
