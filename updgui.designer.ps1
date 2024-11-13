@@ -9,6 +9,7 @@ $Form1 = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$Button2 = $null
 [System.Windows.Forms.Label]$Label1 = $null
 [System.Windows.Forms.Button]$Button3 = $null
+[System.Windows.Forms.CheckBox]$CheckBox1 = $null
 function InitializeComponent
 {
 $ListView1 = (New-Object -TypeName System.Windows.Forms.ListView)
@@ -21,6 +22,7 @@ $Button1 = (New-Object -TypeName System.Windows.Forms.Button)
 $Button2 = (New-Object -TypeName System.Windows.Forms.Button)
 $Label1 = (New-Object -TypeName System.Windows.Forms.Label)
 $Button3 = (New-Object -TypeName System.Windows.Forms.Button)
+$CheckBox1 = (New-Object -TypeName System.Windows.Forms.CheckBox)
 $Form1.SuspendLayout()
 #
 #ListView1
@@ -98,10 +100,10 @@ $Button2.add_Click($Button2_Click)
 #Label1
 #
 $Label1.Anchor = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Bottom -bor [System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
-$Label1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Arial',[System.Single]11.25,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]492,[System.Int32]628))
+$Label1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Trebuchet MS',[System.Single]11.25,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$Label1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]647,[System.Int32]628))
 $Label1.Name = [System.String]'Label1'
-$Label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]677,[System.Int32]33))
+$Label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]522,[System.Int32]33))
 $Label1.TabIndex = [System.Int32]2
 $Label1.Text = [System.String]'Check console output for progress on update installation!'
 $Label1.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
@@ -120,15 +122,30 @@ $Button3.Text = [System.String]'About'
 $Button3.UseVisualStyleBackColor = $true
 $Button3.add_Click($Button3_Click)
 #
+#CheckBox1
+#
+$CheckBox1.Anchor = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Bottom -bor [System.Windows.Forms.AnchorStyles]::Left)
+$CheckBox1.FlatStyle = [System.Windows.Forms.FlatStyle]::System
+$CheckBox1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Tahoma',[System.Single]8.25,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$CheckBox1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]492,[System.Int32]628))
+$CheckBox1.Name = [System.String]'CheckBox1'
+$CheckBox1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]149,[System.Int32]33))
+$CheckBox1.TabIndex = [System.Int32]4
+$CheckBox1.Text = [System.String]' Verbose output'
+$CheckBox1.UseVisualStyleBackColor = $true
+#
 #Form1
 #
 $Form1.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1262,[System.Int32]673))
+$Form1.Controls.Add($CheckBox1)
 $Form1.Controls.Add($Button3)
 $Form1.Controls.Add($Label1)
 $Form1.Controls.Add($Button1)
 $Form1.Controls.Add($ListView1)
 $Form1.Controls.Add($Button2)
 $Form1.ForeColor = [System.Drawing.SystemColors]::ActiveCaptionText
+$Form1.MaximumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]4096,[System.Int32]4096))
+$Form1.MinimumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]600,[System.Int32]240))
 $Form1.StartPosition = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $Form1.Text = [System.String]'UpdGUI'
 $Form1.ResumeLayout($false)
@@ -142,5 +159,6 @@ Add-Member -InputObject $Form1 -Name Button1 -Value $Button1 -MemberType NotePro
 Add-Member -InputObject $Form1 -Name Button2 -Value $Button2 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Label1 -Value $Label1 -MemberType NoteProperty
 Add-Member -InputObject $Form1 -Name Button3 -Value $Button3 -MemberType NoteProperty
+Add-Member -InputObject $Form1 -Name CheckBox1 -Value $CheckBox1 -MemberType NoteProperty
 }
 . InitializeComponent

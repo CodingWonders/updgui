@@ -1,6 +1,7 @@
 & { $BinaryFormatter = New-Object -TypeName System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
  @{ 
 'Button2.Name' = 'Button2'
+'CheckBox1.Name' = 'CheckBox1'
 'ColumnHeader3.Name' = 'ColumnHeader3'
 'ListView1.Name' = 'ListView1'
 'ColumnHeader5.Name' = 'ColumnHeader5'
