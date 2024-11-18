@@ -115,6 +115,7 @@ function Check-PSWindowsUpdate {
 }
 
 function Show-StartupGraphic {
+    $verConst = "v.Next"
     # Show a cool graphic on startup
     Write-Host -NoNewline "`n`n"
     Write-Host "                                                        dddddddd                                                   "
@@ -142,7 +143,7 @@ function Show-StartupGraphic {
     Write-Host "                        ppppppppp                                                                                  "
     Write-Host -NoNewline "`n`n"
     Write-Host "      A simple front-end for PSWindowsUpdate.                                                                  "
-    Write-Host "      Version 1.0                                                                                              "
+    Write-Host "      Version $verConst                                                                                             "
     Write-Host "                                                         Programming: https://www.github.com/CodingWonders     "
     Write-Host "                                                                Idea: https://www.github.com/og-mrk            "
     Write-Host ""

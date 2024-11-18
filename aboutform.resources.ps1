@@ -4,7 +4,7 @@
 'Button1.Name' = 'Button1'
 'RichTextBox1.Text' = 'UpdGUI is a simple front-end written in PowerShell for the PSWindowsUpdate module.
 
-Version: 1.0
+Version: v.Next
 
 - Programming: CodingWonders (https://www.github.com/CodingWonders)
 - Idea: og-mrk (https://www.github.com/og-mrk)
