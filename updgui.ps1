@@ -24,27 +24,35 @@ $Button2_Click = {
         Invoke-InfoLogging "Installing selected updates. Please wait..."
         Invoke-InfoLogging "While you're waiting, why not listen to some cheerful music? https://www.youtube.com/watch?v=QHdZjxrG35U"
         $checkedUpdates = $ListView1.CheckedItems
-        foreach ($selLVI in $checkedUpdates) {
-            Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`" (KB Article ID: $($selLVI.SubItems[2].Text))..."
-            if ($selLVI.Subitems[2].Text -ne "") {
-                if ($CheckBox1.Checked -eq $true) {
-                    Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false -Verbose
-                } else {
-                    Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false
-                }
+        if ($ListView1.CheckedItems.Count -ge $ListView1.Items.Count) {
+            if ($CheckBox1.Checked -eq $true) {
+                Install-WindowsUpdate -Verbose
             } else {
-                if ($CheckBox1.Checked -eq $true) {
-                    Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false -Verbose
-                } else {
-                    Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false
-                }
+                Install-WindowsUpdate
             }
-            if ($?) {
-                Invoke-InfoLogging "Update with name `"$($selLVI.SubItems[4].Text)`" has been successfully installed"
-                $ListView1.Items.Remove($selLVI)
-            } else {
-                Invoke-InfoLogging "Update with name `"$($selLVI.SubItems[4].Text)`" has not been installed"
-                Invoke-InfoLogging "Error information: $_.Exception.Message"
+        } else {
+            foreach ($selLVI in $checkedUpdates) {
+                Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`" (KB Article ID: $($selLVI.SubItems[2].Text))..."
+                if ($selLVI.Subitems[2].Text -ne "") {
+                    if ($CheckBox1.Checked -eq $true) {
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false -Verbose
+                    } else {
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false
+                    }
+                } else {
+                    if ($CheckBox1.Checked -eq $true) {
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false -Verbose
+                    } else {
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false
+                    }
+                }
+                if ($?) {
+                    Invoke-InfoLogging "Update with name `"$($selLVI.SubItems[4].Text)`" has been successfully installed"
+                    $ListView1.Items.Remove($selLVI)
+                } else {
+                    Invoke-InfoLogging "Update with name `"$($selLVI.SubItems[4].Text)`" has not been installed"
+                    Invoke-InfoLogging "Error information: $_.Exception.Message"
+                }
             }
         }
         $Label1.Visible = $false
