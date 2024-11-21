@@ -25,11 +25,13 @@ $Button2_Click = {
         Invoke-InfoLogging "While you're waiting, why not listen to some cheerful music? https://www.youtube.com/watch?v=QHdZjxrG35U"
         $checkedUpdates = $ListView1.CheckedItems
         if ($ListView1.CheckedItems.Count -ge $ListView1.Items.Count) {
+            Invoke-InfoLogging "Installing $($ListView1.Items.Count) update(s)..."
             if ($CheckBox1.Checked -eq $true) {
                 Install-WindowsUpdate -Verbose -Confirm:$false
             } else {
                 Install-WindowsUpdate -Confirm:$false
             }
+            $ListView1.Items.Clear()
         } else {
             foreach ($selLVI in $checkedUpdates) {
                 Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`" (KB Article ID: $($selLVI.SubItems[2].Text))..."
