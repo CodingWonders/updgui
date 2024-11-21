@@ -26,9 +26,9 @@ $Button2_Click = {
         $checkedUpdates = $ListView1.CheckedItems
         if ($ListView1.CheckedItems.Count -ge $ListView1.Items.Count) {
             if ($CheckBox1.Checked -eq $true) {
-                Install-WindowsUpdate -Verbose
+                Install-WindowsUpdate -Verbose -Confirm:$false
             } else {
-                Install-WindowsUpdate
+                Install-WindowsUpdate -Confirm:$false
             }
         } else {
             foreach ($selLVI in $checkedUpdates) {
