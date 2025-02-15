@@ -1,3 +1,26 @@
+$Button5_Click = {
+    $UpdateInstallationPanel.Visible = $false
+    $UpdateHistoryPanel.Visible = $true
+
+    Invoke-InfoLogging "Getting installed updates..."
+    $ListView7.Items.Clear()
+    $updateHistory = Get-WindowsUpdatesFromHistory
+    if ($updateHistory.Count -gt 0) {
+        for ($i = 0; $i -lt $updateHistory.Count; $i++) {
+            $ListView7.Items.Add([System.Windows.Forms.ListViewItem]::new([string[]]@(
+                $updateHistory[$i].ComputerName,
+                $updateHistory[$i].Operationname,
+                $updateHistory[$i].Result,
+                $updateHistory[$i].Date,
+                $updateHistory[$i].Title
+            )))
+        }
+    }
+}
+$Button4_Click = {
+    $UpdateInstallationPanel.Visible = $true
+    $UpdateHistoryPanel.Visible = $false
+}
 $Button3_Click = {
     . (Join-Path $PSScriptRoot 'aboutform.designer.ps1')
     $AboutForm.ShowDialog($Form1)
@@ -27,25 +50,26 @@ $Button2_Click = {
         if ($ListView1.CheckedItems.Count -ge $ListView1.Items.Count) {
             Invoke-InfoLogging "Installing $($ListView1.Items.Count) update(s)..."
             if ($CheckBox1.Checked -eq $true) {
-                Install-WindowsUpdate -Verbose -Confirm:$false
+                Install-WindowsUpdate -Verbose -Confirm:$false -IgnoreReboot:$true -IgnoreRebootRequired:$true
             } else {
-                Install-WindowsUpdate -Confirm:$false
+                Install-WindowsUpdate -Confirm:$false -IgnoreReboot:$true -IgnoreRebootRequired:$true
             }
+            Invoke-InfoLogging "Installation of updates succeeded. You may need to restart your computer for changes to take effect."
             $ListView1.Items.Clear()
         } else {
             foreach ($selLVI in $checkedUpdates) {
                 Invoke-InfoLogging "Installing update with name: `"$($selLVI.SubItems[4].Text)`" (KB Article ID: $($selLVI.SubItems[2].Text))..."
                 if ($selLVI.Subitems[2].Text -ne "") {
                     if ($CheckBox1.Checked -eq $true) {
-                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false -Verbose
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false -Verbose -IgnoreReboot:$true -IgnoreRebootRequired:$true
                     } else {
-                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -KBArticleID $selLVI.SubItems[2].Text -Install -Confirm:$false -IgnoreReboot:$true -IgnoreRebootRequired:$true
                     }
                 } else {
                     if ($CheckBox1.Checked -eq $true) {
-                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false -Verbose
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false -Verbose -IgnoreReboot:$true -IgnoreRebootRequired:$true
                     } else {
-                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false
+                        Get-WindowsUpdate -ComputerName "$($selLVI.SubItems[1].Text)" -Title "$($selLVI.SubItems[4].Text)" -Install -Confirm:$false -IgnoreReboot:$true -IgnoreRebootRequired:$true
                     }
                 }
                 if ($?) {
@@ -56,6 +80,7 @@ $Button2_Click = {
                     Invoke-InfoLogging "Error information: $_.Exception.Message"
                 }
             }
+            Invoke-InfoLogging "You may need to restart your computer for changes to take effect."
         }
         $Label1.Visible = $false
         $CheckBox1.Enabled = $true
@@ -101,6 +126,10 @@ function Invoke-InfoLogging {
     Write-Host "[$(Get-Date)] $message"
 }
 
+function Get-WindowsUpdatesFromHistory {
+    return Get-WUHistory
+}
+
 function Check-PSWindowsUpdate {
     try {
         Invoke-InfoLogging "Checking PSWindowsUpdate..."
@@ -125,7 +154,7 @@ function Check-PSWindowsUpdate {
 }
 
 function Show-StartupGraphic {
-    $verConst = "v.Next"
+    $verConst = "1.1"
     # Show a cool graphic on startup
     Write-Host -NoNewline "`n`n"
     Write-Host "                                                        dddddddd                                                   "
